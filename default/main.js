@@ -3,8 +3,16 @@ var gameFactory = require('game.factory');
 var roleWorker = require('role.worker');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
+var roleMiner = require('role.miner');
 
 module.exports.loop = function () {
+
+    // Put objects in global memory
+    Memory.gameFactory = gameFactory;
+    Memory.gameInfo = gameInfo;
+
+    gameInfo.reset();
+    
 
     /*var tower = Game.getObjectById('dd8dd33fd29d2fb97e9e5447');
      if(tower) {
@@ -23,6 +31,7 @@ module.exports.loop = function () {
 
     for (var name in Game.creeps) {
         var creep = Game.creeps[name];
+        gameInfo.registerCreep(creep);
 
         switch (creep.memory.role) {
             case 'worker':
@@ -34,6 +43,9 @@ module.exports.loop = function () {
                 break;
             case 'builder':
                 roleBuilder.run(creep);
+                break;
+            case 'miner':
+                roleMiner.run(creep);
         }
     }
 
@@ -46,22 +58,16 @@ module.exports.loop = function () {
     }
 
 
-    if (gameInfo.getRoleCount('upgrader') < 1) {
-        /*var newName = Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE, MOVE], undefined, {role: 'upgrader'});
-        if (isNaN(newName)) {
-            console.log('new upgrader: ' + newName);
-        }*/
-
+    if (gameInfo.getRoleCount('upgrader') < 3) {
         gameFactory.spawnCreep([WORK, CARRY, MOVE, MOVE], 'upgrader');
     }
 
 
     if (gameInfo.getRoleCount('builder') < 2) {
-        /*var newName = Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE, MOVE], undefined, {role: 'builder'});
-        if (isNaN(newName)) {
-            console.log('new builder: ' + newName);
-        }*/
-
         gameFactory.spawnCreep([WORK, CARRY, MOVE, MOVE], 'builder');
+    }
+
+    if (gameInfo.getRoleCount('miner') < 1) {
+        gameFactory.spawnCreep([WORK, WORK, WORK, MOVE], 'miner');
     }
 };
