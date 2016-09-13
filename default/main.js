@@ -1,6 +1,6 @@
 var gameInfo = require('game.info');
 var gameFactory = require('game.factory');
-var roleHarvester = require('role.harvester');
+var roleWorker = require('role.worker');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 
@@ -25,8 +25,9 @@ module.exports.loop = function () {
         var creep = Game.creeps[name];
 
         switch (creep.memory.role) {
+            case 'worker':
             case 'harvester':
-                roleHarvester.run(creep);
+                roleWorker.run(creep);
                 break;
             case 'upgrader':
                 roleUpgrader.run(creep);
@@ -36,12 +37,12 @@ module.exports.loop = function () {
         }
     }
 
-    if (gameInfo.getRoleCount('harvester') < 6) {
+    if (gameInfo.getRoleCount('worker') < 6 ) {
         /*var newName = Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE], 'har_' + Math.random(), {role: 'harvester'});
          if (isNaN(newName)) {
          console.log('new harvester: ' + newName);
          }*/
-        gameFactory.spawnCreep([WORK, CARRY, MOVE, MOVE], 'harvester');
+        gameFactory.spawnCreep([WORK, CARRY, MOVE, MOVE], 'worker');
     }
 
 
