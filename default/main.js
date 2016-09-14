@@ -4,6 +4,7 @@ var roleWorker = require('role.worker');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleMiner = require('role.miner');
+var roleTower = require('role.tower');
 
 module.exports.loop = function () {
 
@@ -14,21 +15,7 @@ module.exports.loop = function () {
     gameInfo.reset();
     
 
-    /*var tower = Game.getObjectById('dd8dd33fd29d2fb97e9e5447');
-     if(tower) {
-     var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-     filter: (structure) => structure.hits < structure.hitsMax
-     });
-     if(closestDamagedStructure) {
-     tower.repair(closestDamagedStructure);
-     }
-
-     var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-     if(closestHostile) {
-     tower.attack(closestHostile);
-     }
-     }*/
-
+    // Creep loop
     for (var name in Game.creeps) {
         var creep = Game.creeps[name];
         gameInfo.registerCreep(creep);
@@ -48,26 +35,32 @@ module.exports.loop = function () {
                 roleMiner.run(creep);
         }
     }
+    
+    // Structure loop
+    for (var name in Game.structures) {
+        var structure = Game.structures[name];
+        
+        switch (structure.structureType) {
+            case STRUCTURE_TOWER:
+                roleTower.run(structure);
+                break;
+        }
+    }
+    
 
     if (gameInfo.getRoleCount('worker') < 6 ) {
-        /*var newName = Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE], 'har_' + Math.random(), {role: 'harvester'});
-         if (isNaN(newName)) {
-         console.log('new harvester: ' + newName);
-         }*/
-        gameFactory.spawnCreep([WORK, CARRY, MOVE, MOVE], 'worker');
+        gameFactory.spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE, MOVE], 'worker');
     }
-
 
     if (gameInfo.getRoleCount('upgrader') < 3) {
-        gameFactory.spawnCreep([WORK, CARRY, MOVE, MOVE], 'upgrader');
+        gameFactory.spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE], 'upgrader');
     }
-
 
     if (gameInfo.getRoleCount('builder') < 2) {
-        gameFactory.spawnCreep([WORK, CARRY, MOVE, MOVE], 'builder');
+        gameFactory.spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], 'builder');
     }
 
-    if (gameInfo.getRoleCount('miner') < 1) {
+    if (gameInfo.getRoleCount('miner') < 2) {
         gameFactory.spawnCreep([WORK, WORK, WORK, MOVE], 'miner');
     }
 };
