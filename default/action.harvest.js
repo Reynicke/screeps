@@ -3,16 +3,11 @@ var actionHarvest = {
     /**
      *
      * @param {Creep} creep
-     * @param {int} sourceIndex
      */
-    do: function (creep, sourceIndex = 1) {
+    do: function (creep) {
 
-        // Determine target resource
-        var sources = creep.room.find(FIND_SOURCES);
-        var source = sources[sourceIndex];
-        
         // Find dropped energy or container
-        var droppedEnergy = this.findNearDroppedEnergy(creep);
+        var droppedEnergy = this.findCloseDroppedEnergy(creep);
         var container = this.findContainer(creep);
 
         if (droppedEnergy) {
@@ -22,6 +17,9 @@ var actionHarvest = {
             }
         }
 
+        // Determine target resource
+        var source = creep.pos.findClosestByPath(FIND_SOURCES);
+        
         if (container && creep.harvest(source) == ERR_NOT_IN_RANGE) {
             // Pick up from container
             if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
@@ -70,12 +68,12 @@ var actionHarvest = {
      * @param creep
      * @returns {*}
      */
-    findNearDroppedEnergy: function(creep) {
-        var droppedEnergy = creep.pos.findClosestByPath(
+    findCloseDroppedEnergy: function(creep) {
+        /*var droppedEnergy = creep.pos.findClosestByPath(
             FIND_DROPPED_ENERGY,
             {
                 filter: (d) => {
-                    return (d.resourceType == RESOURCE_ENERGY)
+                    return creep.pos.//(d.resourceType == RESOURCE_ENERGY)
                 }
             }
         );
@@ -88,7 +86,11 @@ var actionHarvest = {
             }
         }
         
+        return droppedEnergy;*/
+        
+        var droppedEnergy = creep.pos.findInRange(FIND_DROPPED_ENERGY, 10);
         return droppedEnergy;
+        
     }
 };
 

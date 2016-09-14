@@ -1,3 +1,4 @@
+var cron = require ('game.cron');
 var gameInfo = require('game.info');
 var gameFactory = require('game.factory');
 var roleWorker = require('role.worker');
@@ -13,6 +14,8 @@ module.exports.loop = function () {
     Memory.gameInfo = gameInfo;
 
     gameInfo.reset();
+
+    cron.tick();
     
 
     // Creep loop
