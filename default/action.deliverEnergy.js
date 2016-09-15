@@ -23,10 +23,10 @@ var actionDeliver = {
                 creep.moveTo(target);
             }
             
-            return true;
+            return target;
         }
         
-        return false;
+        return null;
     }
 };
 

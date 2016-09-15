@@ -5,10 +5,10 @@ var roleMiner = {
     /** @param {Creep} creep **/
     run: function (creep) {
         if (!creep.memory.myContainer) {
+            
             // Find my container
             var otherMiners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner');
             var containers = creep.room.find(FIND_STRUCTURES, {filter: {structureType: STRUCTURE_CONTAINER}});
-            //var container = _.filter(containers, (container) => container.pos.isNearTo(otherMiners[0].pos));
 
             var container = _.filter(containers, function(container) {
                 for (let c in otherMiners) {

@@ -1,10 +1,11 @@
 var actionHarvest = {
 
     /**
-     *
      * @param {Creep} creep
+     * @returns {Structure}
      */
     do: function (creep) {
+        var target = null;
 
         // Find dropped energy or container
         var droppedEnergy = this.findCloseDroppedEnergy(creep);
@@ -17,13 +18,15 @@ var actionHarvest = {
             // Pick up dropped energy
             if (creep.pickup(droppedEnergy) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(droppedEnergy);
+                target = droppedEnergy;
             }
         }
 
-        else if (container /*&& creep.harvest(source) == ERR_NOT_IN_RANGE*/) {
+        if (container /*&& creep.harvest(source) == ERR_NOT_IN_RANGE*/) {
             // Pick up from container
             if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(container);
+                target = container;
             }
         }
         
@@ -31,8 +34,11 @@ var actionHarvest = {
             // harvest 
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source);
+                target = source;
             }
         }
+        
+        return target;
     },
 
     /**
@@ -95,7 +101,7 @@ var actionHarvest = {
             FIND_DROPPED_ENERGY,
             {
                 filter: (e) => {
-                    return creep.pos.getRangeTo(e.pos) < 15;
+                    return creep.pos.getRangeTo(e.pos) < 10;
                 }
             }
         );

@@ -1,4 +1,4 @@
-var cron = require ('game.cron');
+var cron = require('game.cron');
 var gameInfo = require('game.info');
 var gameFactory = require('game.factory');
 var roleWorker = require('role.worker');
@@ -16,7 +16,7 @@ module.exports.loop = function () {
     gameInfo.reset();
 
     cron.tick();
-    
+
 
     // Creep loop
     for (var name in Game.creeps) {
@@ -38,28 +38,28 @@ module.exports.loop = function () {
                 roleMiner.run(creep);
         }
     }
-    
+
     // Structure loop
     for (var name in Game.structures) {
         var structure = Game.structures[name];
-        
+
         switch (structure.structureType) {
             case STRUCTURE_TOWER:
                 roleTower.run(structure);
                 break;
         }
     }
-    
 
-    if (gameInfo.getRoleCount('worker') < 4 ) {
+
+    if (gameInfo.getRoleCount('worker') < 4) {
         gameFactory.spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE, MOVE], 'worker');
     }
 
-    if (gameInfo.getRoleCount('upgrader') < 4) {
+    if (gameInfo.getRoleCount('upgrader') < 5) {
         gameFactory.spawnCreep([WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE], 'upgrader');
     }
 
-    if (gameInfo.getRoleCount('builder') < 2) {
+    if (gameInfo.getRoleCount('builder') < 1) {
         gameFactory.spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], 'builder');
     }
 

@@ -17,7 +17,14 @@ var roleWorker = {
         }
 
         if (creep.memory.working) {
-            deliverAction.do(creep) || buildAction.do(creep) || upgradeAction.do(creep);
+            var target = deliverAction.do(creep) || buildAction.do(creep) || upgradeAction.do(creep);
+            
+            // If next target is far away and energy carried is low, drop it and get more energy
+            var range = creep.pos.getRangeTo(target);
+            if (range > creep.carry.energy * 1.5) {
+                creep.memory.working = false;
+                creep.say('Too far > harvest');
+            }
         }
         else {
             harvestAction.do(creep);
