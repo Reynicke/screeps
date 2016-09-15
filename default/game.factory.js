@@ -5,9 +5,9 @@ var names = [ 'Liam', 'Milan', 'Elias', 'Levi', 'Julian', 'Jonas', 'Linus', 'Dan
 
 
 function createName(role) {
-    role = role.substr(0, 4);
+    role = role.replace(/[aeiou]/g, '').substr(0, 5);
     var name = names[Math.round(Math.random() * names.length)];
-    return role + '_' + name;
+    return role + ' ' + name;
 }
 
 

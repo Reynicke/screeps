@@ -51,12 +51,12 @@ module.exports.loop = function () {
     }
     
 
-    if (gameInfo.getRoleCount('worker') < 6 ) {
+    if (gameInfo.getRoleCount('worker') < 4 ) {
         gameFactory.spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE, MOVE], 'worker');
     }
 
-    if (gameInfo.getRoleCount('upgrader') < 3) {
-        gameFactory.spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE], 'upgrader');
+    if (gameInfo.getRoleCount('upgrader') < 4) {
+        gameFactory.spawnCreep([WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE], 'upgrader');
     }
 
     if (gameInfo.getRoleCount('builder') < 2) {

@@ -10,6 +10,9 @@ var actionHarvest = {
         var droppedEnergy = this.findCloseDroppedEnergy(creep);
         var container = this.findContainer(creep);
 
+        // Determine target resource
+        var source = creep.pos.findClosestByPath(FIND_SOURCES);
+
         if (droppedEnergy) {
             // Pick up dropped energy
             if (creep.pickup(droppedEnergy) == ERR_NOT_IN_RANGE) {
@@ -17,10 +20,7 @@ var actionHarvest = {
             }
         }
 
-        // Determine target resource
-        var source = creep.pos.findClosestByPath(FIND_SOURCES);
-        
-        if (container && creep.harvest(source) == ERR_NOT_IN_RANGE) {
+        else if (container /*&& creep.harvest(source) == ERR_NOT_IN_RANGE*/) {
             // Pick up from container
             if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(container);
@@ -28,7 +28,7 @@ var actionHarvest = {
         }
         
         else {
-            //harvest if no dropped energy
+            // harvest 
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source);
             }
@@ -38,8 +38,7 @@ var actionHarvest = {
     /**
      * 
      * @param creep
-     * @param source
-     * @returns {*}
+     * @returns {StructureContainer}
      */
     findContainer: function(creep) {
         var container = creep.pos.findClosestByPath(
@@ -73,7 +72,7 @@ var actionHarvest = {
             FIND_DROPPED_ENERGY,
             {
                 filter: (d) => {
-                    return creep.pos.//(d.resourceType == RESOURCE_ENERGY)
+                    return (d.resourceType == RESOURCE_ENERGY)
                 }
             }
         );
@@ -87,8 +86,19 @@ var actionHarvest = {
         }
         
         return droppedEnergy;*/
-        
-        var droppedEnergy = creep.pos.findInRange(FIND_DROPPED_ENERGY, 10);
+
+        //var droppedEnergy = creep.pos.findInRange(FIND_DROPPED_ENERGY, 15);
+        //return droppedEnergy[0];
+
+
+        var droppedEnergy = creep.pos.findClosestByPath(
+            FIND_DROPPED_ENERGY,
+            {
+                filter: (e) => {
+                    return creep.pos.getRangeTo(e.pos) < 15;
+                }
+            }
+        );
         return droppedEnergy;
         
     }
