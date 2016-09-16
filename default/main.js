@@ -5,6 +5,7 @@ var roleWorker = require('role.worker');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleMiner = require('role.miner');
+var roleExplorer = require('role.explorer');
 var roleTower = require('role.tower');
 
 module.exports.loop = function () {
@@ -25,7 +26,6 @@ module.exports.loop = function () {
 
         switch (creep.memory.role) {
             case 'worker':
-            case 'harvester':
                 roleWorker.run(creep);
                 break;
             case 'upgrader':
@@ -36,6 +36,9 @@ module.exports.loop = function () {
                 break;
             case 'miner':
                 roleMiner.run(creep);
+                break;
+            case 'explorer':
+                roleExplorer.run(creep);
         }
     }
 
@@ -50,20 +53,32 @@ module.exports.loop = function () {
         }
     }
 
+    
+    // Spawn needed role creeps
+    gameFactory.autoSpawn(
+        {
+            'worker': {
+                num: 4,
+                body: [WORK, CARRY, CARRY, MOVE, MOVE, MOVE]
+            },
+            
+            'upgrader': {
+                num: 6,
+                body: [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE]
+            },
+            
+            'builder': {
+                num: 1,
+                body: [WORK, CARRY, MOVE, MOVE, MOVE]
+            },
+            
+            'miner': {
+                num: 2,
+                body: [WORK, WORK, WORK, MOVE]
+            }
+        }
+    );
+    
 
-    if (gameInfo.getRoleCount('worker') < 4) {
-        gameFactory.spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE, MOVE], 'worker');
-    }
-
-    if (gameInfo.getRoleCount('upgrader') < 5) {
-        gameFactory.spawnCreep([WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE], 'upgrader');
-    }
-
-    if (gameInfo.getRoleCount('builder') < 1) {
-        gameFactory.spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], 'builder');
-    }
-
-    if (gameInfo.getRoleCount('miner') < 2) {
-        gameFactory.spawnCreep([WORK, WORK, WORK, MOVE], 'miner');
-    }
+    //Memory.gameFactory.spawnCreep([MOVE], 'explorer');
 };
