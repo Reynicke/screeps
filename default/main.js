@@ -65,13 +65,13 @@ module.exports.loop = function () {
     gameFactory.autoSpawn(
         {
             'worker': {
-                num: 4,
-                body: [WORK, CARRY, CARRY, MOVE, MOVE]
+                num: 3,
+                body: Math.random() > .5 ? [WORK, CARRY, CARRY, MOVE, MOVE] : [WORK, WORK, CARRY, CARRY, MOVE, MOVE]
             },
             
             'upgrader': {
-                num: 6,
-                body: [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE]
+                num: 7,
+                body: [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE]
             },
             
             'builder': {

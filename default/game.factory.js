@@ -2,13 +2,14 @@ var gameInfo = require('game.info');
 
 
 var names = ['Liam', 'Milan', 'Elias', 'Levi', 'Julian', 'Jonas', 'Linus', 'Daniel', 'Alex', 'Luca', 'Jan', 'Samuel', 'Tim', 'David', 'Michael', 'Lukas',
-    'Anna', 'Lina', 'Laura', 'Emilia', 'Mila', 'Julia', 'Lea', 'Vanessa', 'Sarah', 'Lena', 'Amelie', 'Elena', 'Lara', 'Nina', 'Leonie', 'Mia', 'Alina', 'Juna', 'Lisa'
+    'Anna', 'Lina', 'Laura', 'Emilia', 'Mila', 'Julia', 'Lea', 'Vanessa', 'Sarah', 'Lena', 'Amelie', 'Elena', 'Lara', 'Nina', 'Leonie', 'Mia', 'Alina', 'Juna', 'Lisa',
+    'Kevin', 'Chantal', 'Maurice'
 ];
 
 
 function createName(role) {
     role = role.replace(/[aeiou]/g, '').substr(0, 5);
-    var name = names[Math.round(Math.random() * names.length)];
+    var name = names[Math.round(Math.random() * (names.length - 1))];
     return role + ' ' + name;
 }
 
