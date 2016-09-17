@@ -5,7 +5,7 @@ var cron = {
     },
     
     isItTime: function(time) {
-        return Memory.cronTick < time;
+        return Memory.cronTick <= time;
     },
     
     tick: function() {
@@ -14,6 +14,7 @@ var cron = {
         }
 
         Memory.cronTick = Memory.cronTick >= 100 ? 1 : Memory.cronTick + 1;
+        //console.log('cron', Memory.cronTick);
     }
     
 };

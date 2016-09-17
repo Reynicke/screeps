@@ -20,6 +20,10 @@ module.exports.loop = function () {
     gameInfo.reset();
 
     cron.tick();
+    
+    if (cron.isItTime(1)) {
+        gameInfo.suggestRoads();
+    }
 
 
     // Creep loop
@@ -69,6 +73,11 @@ module.exports.loop = function () {
                 body: Math.random() > .5 ? [WORK, CARRY, CARRY, MOVE, MOVE] : [WORK, WORK, CARRY, CARRY, MOVE, MOVE]
             },
             
+            'miner': {
+                num: 2,
+                body: [WORK, WORK, WORK, MOVE]
+            },
+            
             'upgrader': {
                 num: 7,
                 body: [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE]
@@ -77,11 +86,6 @@ module.exports.loop = function () {
             'builder': {
                 num: 1,
                 body: [WORK, CARRY, MOVE, MOVE]
-            },
-            
-            'miner': {
-                num: 2,
-                body: [WORK, WORK, WORK, MOVE]
             }
         }
     );

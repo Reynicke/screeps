@@ -10,17 +10,15 @@ var roleBuilder = {
 
         if (creep.memory[actionName] && creep.carry.energy == 0) {
             creep.memory[actionName] = false;
-            creep.say(actionName);
+            creep.say('harvesting');
         }
         if (!creep.memory[actionName] && creep.carry.energy == creep.carryCapacity) {
             creep.memory[actionName] = true;
             creep.say(actionName);
         }
-
-        
         
         if (creep.memory.building) {
-            actionRepair.do(creep) || actionBuild.do(creep);
+            actionBuild.do(creep) || actionRepair.do(creep);
         }
         else {
             actionHarvest.do(creep);
