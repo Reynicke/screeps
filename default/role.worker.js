@@ -21,7 +21,7 @@ var roleWorker = {
             
             // If next target is far away and energy carried is low, drop it and get more energy
             var range = creep.pos.getRangeTo(target);
-            if (range > creep.carry.energy * 1.5) {
+            if (range > creep.carry.energy * 1.1) {
                 creep.memory.working = false;
                 creep.say('Too far > harvest');
             }

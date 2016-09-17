@@ -5,8 +5,8 @@ var roleBuilder = {
     /** @param {StructureTower} tower **/
     run: function (tower) {
         if (tower) {
-            // Only check 50% of the time
-            if (cron.isItTime(50)) {
+            // Only check x% of the time
+            if (cron.isItTime(35)) {
                 
                 // Find structures to repair
                 var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {

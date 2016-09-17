@@ -1,11 +1,14 @@
 var cron = require('game.cron');
 var gameInfo = require('game.info');
 var gameFactory = require('game.factory');
+
 var roleWorker = require('role.worker');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleMiner = require('role.miner');
 var roleExplorer = require('role.explorer');
+var roleInvader = require('role.invader');
+
 var roleTower = require('role.tower');
 
 module.exports.loop = function () {
@@ -39,6 +42,10 @@ module.exports.loop = function () {
                 break;
             case 'explorer':
                 roleExplorer.run(creep);
+                break;
+            case 'invader':
+                roleInvader.run(creep);
+                break;
         }
     }
 
@@ -59,7 +66,7 @@ module.exports.loop = function () {
         {
             'worker': {
                 num: 4,
-                body: [WORK, CARRY, CARRY, MOVE, MOVE, MOVE]
+                body: [WORK, CARRY, CARRY, MOVE, MOVE]
             },
             
             'upgrader': {
@@ -69,7 +76,7 @@ module.exports.loop = function () {
             
             'builder': {
                 num: 1,
-                body: [WORK, CARRY, MOVE, MOVE, MOVE]
+                body: [WORK, CARRY, MOVE, MOVE]
             },
             
             'miner': {
@@ -81,4 +88,5 @@ module.exports.loop = function () {
     
 
     //Memory.gameFactory.spawnCreep([MOVE], 'explorer');
+    //Memory.gameFactory.spawnCreep([CLAIM, MOVE], 'invader');
 };

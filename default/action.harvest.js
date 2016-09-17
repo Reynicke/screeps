@@ -22,7 +22,7 @@ var actionHarvest = {
             }
         }
 
-        if (container /*&& creep.harvest(source) == ERR_NOT_IN_RANGE*/) {
+        if (container && creep.harvest(source) == ERR_NOT_IN_RANGE) {
             // Pick up from container
             if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(container);
