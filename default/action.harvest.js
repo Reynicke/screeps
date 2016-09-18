@@ -1,18 +1,25 @@
+
 var actionHarvest = {
 
+    // Define default behavior
+    defaultConfig: {
+        mayUseLinks: true
+    },
+    
+    config: this.defaultConfig,
+    
     /**
      * @param {Creep} creep
+     * @param {Object} [config]
      * @returns {Structure}
      */
-    do: function (creep) {
+    do: function (creep, config = this.defaultConfig) {
+        this.config = config;
         var target = null;
 
         // Find dropped energy or container
         var droppedEnergy = this.findCloseDroppedEnergy(creep);
         var container = this.findContainer(creep);
-
-        // Determine target resource
-        var source = creep.pos.findClosestByPath(FIND_SOURCES);
 
         if (droppedEnergy) {
             // Pick up dropped energy
@@ -32,6 +39,8 @@ var actionHarvest = {
 
         else {
             // harvest 
+            // Determine target resource
+            var source = creep.pos.findClosestByPath(FIND_SOURCES);
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source);
                 target = source;
@@ -47,12 +56,27 @@ var actionHarvest = {
      * @returns {StructureContainer}
      */
     findContainer: function (creep) {
-        var container = creep.pos.findClosestByPath(
+        var filter, container,
+            minAmount = 50;
+
+        if (this.config.mayUseLinks) {
+            filter = (d) => {
+                var storedEnergy = (d.store && d.store[RESOURCE_ENERGY]) || d.energy;
+                return (d.structureType == STRUCTURE_CONTAINER || d.structureType == STRUCTURE_LINK) &&
+                    (storedEnergy / creep.pos.getRangeTo(d) > minAmount);
+            }
+        }
+        else {
+            filter = (d) => {
+                var storedEnergy = (d.store && d.store[RESOURCE_ENERGY]);
+                return d.structureType == STRUCTURE_CONTAINER && (storedEnergy / creep.pos.getRangeTo(d) > minAmount);
+            }
+        }
+        
+        container = creep.pos.findClosestByPath(
             FIND_STRUCTURES,
             {
-                filter: (d) => {
-                    return d.structureType == STRUCTURE_CONTAINER && (d.store[RESOURCE_ENERGY] / creep.pos.getRangeTo(d) > 50);
-                }
+                filter: filter
             }
         );
 

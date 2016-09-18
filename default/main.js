@@ -9,7 +9,8 @@ var roleMiner = require('role.miner');
 var roleExplorer = require('role.explorer');
 var roleInvader = require('role.invader');
 
-var roleTower = require('role.tower');
+var structureTower = require('structure.tower');
+var structureLink = require('structure.link');
 
 module.exports.loop = function () {
 
@@ -59,7 +60,10 @@ module.exports.loop = function () {
 
         switch (structure.structureType) {
             case STRUCTURE_TOWER:
-                roleTower.run(structure);
+                structureTower.run(structure);
+                break;
+            case STRUCTURE_LINK:
+                structureLink.run(structure);
                 break;
         }
     }
@@ -70,17 +74,17 @@ module.exports.loop = function () {
         {
             'worker': {
                 num: 3,
-                body: Math.random() > .5 ? [WORK, CARRY, CARRY, MOVE, MOVE] : [WORK, WORK, CARRY, CARRY, MOVE, MOVE]
+                body: [WORK, CARRY, CARRY, MOVE, MOVE]
             },
             
             'miner': {
                 num: 2,
-                body: [WORK, WORK, WORK, MOVE]
+                body: [WORK, WORK, WORK, WORK, MOVE]
             },
             
             'upgrader': {
-                num: 7,
-                body: [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE]
+                num: 5,
+                body: [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE]
             },
             
             'builder': {

@@ -27,7 +27,7 @@ var roleWorker = {
             }
         }
         else {
-            harvestAction.do(creep);
+            harvestAction.do(creep, {mayUseLinks: false});
         }
     }
 };

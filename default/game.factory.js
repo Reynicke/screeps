@@ -3,7 +3,7 @@ var gameInfo = require('game.info');
 
 var names = ['Liam', 'Milan', 'Elias', 'Levi', 'Julian', 'Jonas', 'Linus', 'Daniel', 'Alex', 'Luca', 'Jan', 'Samuel', 'Tim', 'David', 'Michael', 'Lukas',
     'Anna', 'Lina', 'Laura', 'Emilia', 'Mila', 'Julia', 'Lea', 'Vanessa', 'Sarah', 'Lena', 'Amelie', 'Elena', 'Lara', 'Nina', 'Leonie', 'Mia', 'Alina', 'Juna', 'Lisa',
-    'Kevin', 'Chantal', 'Maurice'
+    'Kevin', 'Chantal', 'Maurice', 'Lenny'
 ];
 
 
