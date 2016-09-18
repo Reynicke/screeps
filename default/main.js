@@ -3,6 +3,7 @@ var gameInfo = require('game.info');
 var gameFactory = require('game.factory');
 
 var roleWorker = require('role.worker');
+var roleTransporter = require('role.transporter');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleMiner = require('role.miner');
@@ -35,6 +36,9 @@ module.exports.loop = function () {
         switch (creep.memory.role) {
             case 'worker':
                 roleWorker.run(creep);
+                break;
+            case 'transporter':
+                roleTransporter.run(creep);
                 break;
             case 'upgrader':
                 roleUpgrader.run(creep);
@@ -73,8 +77,13 @@ module.exports.loop = function () {
     gameFactory.autoSpawn(
         {
             'worker': {
-                num: 3,
+                num: 2,
                 body: [WORK, CARRY, CARRY, MOVE, MOVE]
+            },
+
+            'transporter': {
+                num: 2,
+                body: [CARRY, CARRY, CARRY, MOVE, MOVE]
             },
             
             'miner': {

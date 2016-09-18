@@ -1,24 +1,25 @@
 var harvestAction = require ('action.harvest');
 var deliverAction = require ('action.deliverEnergy');
 var upgradeAction = require ('action.upgradeController');
-var buildAction = require ('action.build');
 
-var roleWorker = {
+var roleTransporter = {
 
     /** @param {Creep} creep **/
     run: function (creep) {
-        if (creep.memory.working && creep.carry.energy == 0) {
-            creep.memory.working = false;
+        let actionName = 'working';
+        
+        if (creep.memory[actionName] && creep.carry.energy == 0) {
+            creep.memory[actionName] = false;
             creep.say('harvesting');
         }
-        if (!creep.memory.working && creep.carry.energy == creep.carryCapacity) {
-            creep.memory.working = true;
-            creep.say('working');
+        if (!creep.memory[actionName] && creep.carry.energy == creep.carryCapacity) {
+            creep.memory[actionName] = true;
+            creep.say(actionName);
         }
 
-        if (creep.memory.working) {
-            var target = buildAction.do(creep) || deliverAction.do(creep) || upgradeAction.do(creep);
-            
+        if (creep.memory[actionName]) {
+            var target = deliverAction.do(creep) || upgradeAction.do(creep);
+
             // If next target is far away and energy carried is low, get more energy
             var range = creep.pos.getRangeTo(target);
             if (range > creep.carry.energy * 1.1) {
@@ -32,4 +33,4 @@ var roleWorker = {
     }
 };
 
-module.exports = roleWorker;
+module.exports = roleTransporter;
