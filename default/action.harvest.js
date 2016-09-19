@@ -41,7 +41,7 @@ var actionHarvest = {
             // harvest 
             // Determine target resource
             var source = creep.pos.findClosestByPath(FIND_SOURCES);
-            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+            if (creep.harvest(source) == ERR_NOT_IN_RANGE || creep.harvest(source) == ERR_NO_BODYPART) {
                 creep.moveTo(source);
                 target = source;
             }
@@ -73,12 +73,7 @@ var actionHarvest = {
             }
         }
         
-        container = creep.pos.findClosestByPath(
-            FIND_STRUCTURES,
-            {
-                filter: filter
-            }
-        );
+        container = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: filter});
 
         return container;
     },

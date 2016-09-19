@@ -92,13 +92,18 @@ module.exports.loop = function () {
             },
             
             'upgrader': {
-                num: 5,
+                num: 6,
                 body: [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE]
             },
             
             'builder': {
                 num: 1,
-                body: [WORK, CARRY, MOVE, MOVE]
+                body: [WORK, CARRY, MOVE]
+            },
+
+            'explorer': {
+                num: 2,
+                body: [WORK, CARRY, MOVE]
             }
         }
     );
