@@ -76,34 +76,69 @@ module.exports.loop = function () {
     // Spawn needed role creeps
     gameFactory.autoSpawn(
         {
-            'worker': {
-                num: 2,
-                body: [WORK, CARRY, CARRY, MOVE, MOVE]
-            },
+            'Spawn1': {
+                'worker': {
+                    num: 2,
+                    body: [WORK, CARRY, CARRY, MOVE, MOVE]
+                },
 
-            'transporter': {
-                num: 2,
-                body: [CARRY, CARRY, CARRY, MOVE, MOVE]
-            },
-            
-            'miner': {
-                num: 2,
-                body: [WORK, WORK, WORK, WORK, MOVE]
-            },
-            
-            'upgrader': {
-                num: 6,
-                body: [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE]
-            },
-            
-            'builder': {
-                num: 1,
-                body: [WORK, CARRY, MOVE]
-            },
+                'miner': {
+                    num: 2,
+                    body: [WORK, WORK, WORK, WORK, MOVE]
+                },
 
-            'explorer': {
-                num: 2,
-                body: [WORK, CARRY, MOVE]
+                'transporter': {
+                    num: 2,
+                    body: [CARRY, CARRY, CARRY, MOVE, MOVE]
+                },
+
+                'upgrader': {
+                    num: 3,
+                    body: [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE]
+                },
+
+                'builder': {
+                    num: 1,
+                    body: [WORK, CARRY, MOVE]
+                },
+
+                'explorer': {
+                    num: 3,
+                    body: [WORK, CARRY, MOVE],
+                    global: true
+                },
+
+                'invader': {
+                    num: 0,
+                    body: [CLAIM, MOVE],
+                    global: true
+                }
+            },
+            'Spawn2': {
+                'worker': {
+                    num: 1,
+                    body: [WORK, CARRY, MOVE]
+                },
+
+                'builder': {
+                    num: 0,
+                    body: [WORK, CARRY, MOVE]
+                },
+
+                'miner': {
+                    num: 1,
+                    body: [WORK, WORK, MOVE]
+                },
+
+                'transporter': {
+                    num: 0,
+                    body: [CARRY, CARRY, CARRY, MOVE, MOVE]
+                },
+
+                'upgrader': {
+                    num: 1,
+                    body: [WORK, CARRY, MOVE]
+                }
             }
         }
     );

@@ -1,22 +1,35 @@
 var info = {
 
     roles: {},
+    rolesPerRoom: {},
 
     reset: function () {
         this.roles = {};
+        this.rolesPerRoom = {};
     },
 
     /** @param {Creep} creep **/
     registerCreep: function (creep) {
+        
         // Track roles
-        if (!this.roles[creep.memory.role]) {
-            this.roles[creep.memory.role] = 0;
+        var roomName = creep.pos.roomName;
+        var role = creep.memory.role;
+        
+        if (!this.rolesPerRoom[roomName]) {
+            this.rolesPerRoom[roomName] = {};
         }
-        this.roles[creep.memory.role] += 1;
+        if (!this.rolesPerRoom[roomName][role]) {
+            this.rolesPerRoom[roomName][role] = 0;
+        }
+        if (!this.roles[role]) {
+            this.roles[role] = 0;
+        }
+        
+        this.rolesPerRoom[roomName][role] += 1;
+        this.roles[role] += 1;
 
 
         // Track positions
-        
         var posKey = creep.pos.roomName + '_' + creep.pos.x + '_' + creep.pos.y;
         if (!Memory.creepPositions) {
             Memory.creepPositions = {'test': 1};
@@ -77,12 +90,16 @@ var info = {
     /**
      * Returns number of creeps of given role
      * @param roleName
+     * @param roomName
      * @returns {number}
      */
-    getRoleCount: function (roleName) {
+    getRoleCount: function (roleName, roomName = null) {
         var result = 0;
-        if (this.roles[roleName]) {
-            result = this.roles[roleName]
+        if (!roomName && this.roles[roleName]) {
+            result = this.roles[roleName];
+        }
+        else if (this.rolesPerRoom[roomName] && this.rolesPerRoom[roomName][roleName]) {
+            result = this.rolesPerRoom[roomName][roleName];
         }
 
         return result;

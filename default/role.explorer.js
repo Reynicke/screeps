@@ -1,5 +1,8 @@
 var actionHarvest = require('action.harvest');
 var actionDeliver = require('action.deliverEnergy');
+var actionRepair = require('action.repair');
+var actionBuild = require('action.build');
+var actionUpgrade = require('action.upgradeController');
 
 var roleExplorer = {
 
@@ -31,7 +34,8 @@ var roleExplorer = {
         }
         
         if (creep.memory[actionName]) {
-            actionDeliver.do(creep);
+            //actionDeliver.do(creep) || actionRepair.do(creep);
+            actionDeliver.do(creep) || actionBuild.do(creep) || actionRepair.do(creep) || actionUpgrade.do(creep);
         }
         else {
             actionHarvest.do(creep);
