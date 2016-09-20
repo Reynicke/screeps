@@ -57,7 +57,7 @@ var actionHarvest = {
      */
     findContainer: function (creep) {
         var filter, container,
-            minAmount = 50;
+            minAmount = 30;
 
         if (this.config.mayUseLinks) {
             filter = (d) => {

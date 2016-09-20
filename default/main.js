@@ -93,7 +93,7 @@ module.exports.loop = function () {
                 },
 
                 'upgrader': {
-                    num: 3,
+                    num: 4,
                     body: [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE]
                 },
 
@@ -104,7 +104,7 @@ module.exports.loop = function () {
 
                 'explorer': {
                     num: 3,
-                    body: [WORK, CARRY, MOVE],
+                    body: [WORK, CARRY, MOVE, MOVE],
                     global: true
                 },
 
@@ -121,13 +121,13 @@ module.exports.loop = function () {
                 },
 
                 'builder': {
-                    num: 0,
+                    num: 1,
                     body: [WORK, CARRY, MOVE]
                 },
 
                 'miner': {
                     num: 1,
-                    body: [WORK, WORK, MOVE]
+                    body: [WORK, WORK, WORK, WORK, MOVE]
                 },
 
                 'transporter': {
@@ -136,8 +136,8 @@ module.exports.loop = function () {
                 },
 
                 'upgrader': {
-                    num: 1,
-                    body: [WORK, CARRY, MOVE]
+                    num: 2,
+                    body: [WORK, CARRY, CARRY, MOVE]
                 }
             }
         }

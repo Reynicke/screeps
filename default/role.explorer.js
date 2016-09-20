@@ -34,8 +34,7 @@ var roleExplorer = {
         }
         
         if (creep.memory[actionName]) {
-            //actionDeliver.do(creep) || actionRepair.do(creep);
-            actionDeliver.do(creep) || actionBuild.do(creep) || actionRepair.do(creep) || actionUpgrade.do(creep);
+            actionDeliver.do(creep, {fillContainers: true}) || actionBuild.do(creep) || actionRepair.do(creep) || actionUpgrade.do(creep);
         }
         else {
             actionHarvest.do(creep);

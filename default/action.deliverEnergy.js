@@ -1,7 +1,19 @@
 var actionDeliver = {
 
-    /** @param {Creep} creep **/
-    do: function (creep) {
+    // Define default behavior
+    defaultConfig: {
+        fillContainers: false
+    },
+
+    config: this.defaultConfig,
+
+    /** 
+     * @param {Creep} creep
+     * @param {Object} config
+     **/
+    do: function (creep, config = this.defaultConfig) {
+        this.config = config;
+        
         // Find nearest structure, that is not full of energy
         var target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
             filter: (structure) => {
@@ -13,6 +25,15 @@ var actionDeliver = {
             }
         });
         
+        if (this.config.fillContainers && !target) {
+            // Try to find an empty container
+            target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+                filter: (structure) => {
+                    return (structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] < structure.storeCapacity;
+                }
+            });
+        }
+
         if (target) {
             if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target);
