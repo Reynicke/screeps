@@ -84,12 +84,12 @@ module.exports.loop = function () {
 
                 'miner': {
                     num: 2,
-                    body: [WORK, WORK, WORK, WORK, MOVE]
+                    body: [WORK, WORK, WORK, WORK, WORK, MOVE]
                 },
 
                 'transporter': {
-                    num: 2,
-                    body: [CARRY, CARRY, CARRY, MOVE, MOVE]
+                    num: 3,
+                    body: [CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]
                 },
 
                 'upgrader': {
@@ -103,8 +103,8 @@ module.exports.loop = function () {
                 },
 
                 'explorer': {
-                    num: 3,
-                    body: [WORK, CARRY, MOVE, MOVE],
+                    num: 4,
+                    body: [WORK, CARRY, CARRY, MOVE, MOVE],
                     global: true
                 },
 
@@ -117,7 +117,7 @@ module.exports.loop = function () {
             'Spawn2': {
                 'worker': {
                     num: 1,
-                    body: [WORK, CARRY, MOVE]
+                    body: [WORK, CARRY, CARRY, MOVE, MOVE]
                 },
 
                 'builder': {
@@ -127,17 +127,17 @@ module.exports.loop = function () {
 
                 'miner': {
                     num: 1,
-                    body: [WORK, WORK, WORK, WORK, MOVE]
+                    body: [WORK, WORK, WORK, WORK, WORK, MOVE]
                 },
 
                 'transporter': {
-                    num: 0,
+                    num: 1,
                     body: [CARRY, CARRY, CARRY, MOVE, MOVE]
                 },
 
                 'upgrader': {
                     num: 2,
-                    body: [WORK, CARRY, CARRY, MOVE]
+                    body: [WORK, WORK, CARRY, CARRY, CARRY, MOVE]
                 }
             }
         }
