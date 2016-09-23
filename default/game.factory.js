@@ -16,6 +16,8 @@ function createName(role) {
 
 var factory = {
 
+    globalSpawnCoolDown: 0,
+
     /**
      * Spawns creeps depending on needed role
      * @param {Object} config   {'Spawn1': {
@@ -28,13 +30,26 @@ var factory = {
      * @returns {*}
      */
     autoSpawn: function (config) {
+        this.globalSpawnCoolDown += this.globalSpawnCoolDown > 0 ? -1 : 0;
+
         for (var spawn in config) {
             var room = Game.spawns[spawn].room;
             for (let role in config[spawn]) {
-                let roomName = config[spawn][role].global ? null : room.name;
-                
+                let isRoleGlobal = config[spawn][role].global;
+                let roomName = isRoleGlobal ? null : room.name;
+
+                // Check defined demand
                 if (gameInfo.getRoleCount(role, roomName) < config[spawn][role].num) {
-                    this.spawnCreep(config[spawn][role].body, role, spawn);
+                    // Break if on cooldown
+                    if (isRoleGlobal && this.globalSpawnCoolDown > 0) break;
+
+                    // Spawn a creep
+                    let success = this.spawnCreep(config[spawn][role].body, role, spawn);
+                    
+                    // Set cooldown, if role is global to prevent multiple creeps
+                    if (isRoleGlobal && success && Game.spawns[spawn].spawning) {
+                        this.globalSpawnCoolDown = Game.spawns[spawn].spawning.remainingTime + 1;
+                    }
                     break;
                 }
             }
@@ -46,7 +61,7 @@ var factory = {
 
         var success = Game.spawns[spawn].createCreep(parts, name, {role: role, spawn: spawn});
         if (isNaN(success)) {
-            console.log(spawn, Game.spawns[spawn].pos,  'spawned ' + role + ': ' + name);
+            console.log(spawn, Game.spawns[spawn].pos, 'spawned ' + role + ': ' + name);
             return true;
         }
 
