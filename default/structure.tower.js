@@ -13,7 +13,7 @@ var structureTower = {
             }
             
             // Repair only x% of the time and only if tower has spare energy
-            if (cron.isItTime(25) && tower.energy / tower.energyCapacity >= 0.5) {
+            if (cron.isItTime(30) && tower.energy / tower.energyCapacity >= 0.5) {
                 
                 // Find structures to repair
                 /*var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
@@ -24,9 +24,10 @@ var structureTower = {
                 });
 
                 if (targets) {
+                    // Pick a random target from the top 3
                     targets.sort((a, b) => a.hits - b.hits);
-                    var closestDamagedStructure = targets[0];
-                    tower.repair(closestDamagedStructure);
+                    let index = Math.round(Math.random() * Math.min(targets.length, 3)) - 1;
+                    tower.repair(targets[index]);
                 }
             }
         }

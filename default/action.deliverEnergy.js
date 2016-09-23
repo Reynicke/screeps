@@ -26,10 +26,12 @@ var actionDeliver = {
         });
         
         if (this.config.fillContainers && !target) {
-            // Try to find an empty container
+            // Try to find an empty container or storage
             target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                 filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] < structure.storeCapacity;
+                    return (structure.structureType == STRUCTURE_CONTAINER ||
+                            structure.structureType == STRUCTURE_STORAGE)
+                         && structure.store[RESOURCE_ENERGY] < structure.storeCapacity;
                 }
             });
         }

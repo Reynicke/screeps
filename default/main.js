@@ -2,6 +2,7 @@ var cron = require('game.cron');
 var gameInfo = require('game.info');
 var gameFactory = require('game.factory');
 
+var roleCreep = require('role.creep');
 var roleWorker = require('role.worker');
 var roleTransporter = require('role.transporter');
 var roleUpgrader = require('role.upgrader');
@@ -29,10 +30,17 @@ module.exports.loop = function () {
 
 
     // Creep loop
-    for (var name in Game.creeps) {
+    for (let name in Game.creeps) {
         var creep = Game.creeps[name];
         gameInfo.registerCreep(creep);
 
+        // Do generic creep action
+        let target = roleCreep.run(creep);
+        if (target) {
+            continue;
+        }
+        
+        // Do role specific actions
         switch (creep.memory.role) {
             case 'worker':
                 roleWorker.run(creep);
@@ -59,7 +67,7 @@ module.exports.loop = function () {
     }
 
     // Structure loop
-    for (var name in Game.structures) {
+    for (let name in Game.structures) {
         var structure = Game.structures[name];
 
         switch (structure.structureType) {
@@ -93,8 +101,8 @@ module.exports.loop = function () {
                 },
 
                 'upgrader': {
-                    num: 4,
-                    body: [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE]
+                    num: 3,
+                    body: [WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE]
                 },
 
                 'builder': {
@@ -103,8 +111,8 @@ module.exports.loop = function () {
                 },
 
                 'explorer': {
-                    num: 4,
-                    body: [WORK, CARRY, CARRY, MOVE, MOVE],
+                    num: 2,
+                    body: [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
                     global: true
                 },
 
@@ -120,14 +128,14 @@ module.exports.loop = function () {
                     body: [WORK, CARRY, CARRY, MOVE, MOVE]
                 },
 
-                'builder': {
-                    num: 1,
-                    body: [WORK, CARRY, MOVE]
-                },
-
                 'miner': {
                     num: 1,
                     body: [WORK, WORK, WORK, WORK, WORK, MOVE]
+                },
+
+                'builder': {
+                    num: 1,
+                    body: [WORK, CARRY, MOVE]
                 },
 
                 'transporter': {
@@ -137,7 +145,13 @@ module.exports.loop = function () {
 
                 'upgrader': {
                     num: 2,
-                    body: [WORK, WORK, CARRY, CARRY, CARRY, MOVE]
+                    body: [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE]
+                },
+                
+                'explorer': {
+                    num: 3,
+                    body: [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+                    global: true
                 }
             }
         }

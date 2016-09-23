@@ -35,6 +35,7 @@ var factory = {
                 
                 if (gameInfo.getRoleCount(role, roomName) < config[spawn][role].num) {
                     this.spawnCreep(config[spawn][role].body, role, spawn);
+                    break;
                 }
             }
         }
