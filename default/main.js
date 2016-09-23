@@ -1,6 +1,7 @@
 var cron = require('game.cron');
 var gameInfo = require('game.info');
 var gameFactory = require('game.factory');
+var gameManager = require('game.manager');
 
 var roleCreep = require('role.creep');
 var roleWorker = require('role.worker');
@@ -21,13 +22,12 @@ module.exports.loop = function () {
     Memory.gameInfo = gameInfo;
 
     gameInfo.reset();
-
     cron.tick();
-    
+    gameManager.run();
+
     if (cron.isItTime(1)) {
         gameInfo.suggestRoads();
     }
-
 
     // Creep loop
     for (let name in Game.creeps) {
@@ -111,7 +111,7 @@ module.exports.loop = function () {
                 },
 
                 'explorer': {
-                    num: 2,
+                    num: 3,
                     body: [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
                     global: true
                 },

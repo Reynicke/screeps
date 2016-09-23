@@ -103,7 +103,17 @@ var info = {
         }
 
         return result;
+    },
+
+    /**
+     * Gets percentage of available energy in a room
+     * @param {Room} room
+     * @returns {number}
+     */
+    getEnergyPercent: function(room) {
+        return room.energyAvailable / room.energyCapacityAvailable;
     }
+    
 };
 
 module.exports = info;
