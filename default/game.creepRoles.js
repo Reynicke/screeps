@@ -107,6 +107,16 @@ var roleDefinitions = {
                 [CLAIM, CLAIM, MOVE]
             ],
             global: true
+        },
+        
+        'importer': {
+            body: [
+                [WORK, CARRY, MOVE],
+                [WORK, CARRY, CARRY, MOVE, MOVE],
+                [WORK, WORK, CARRY, CARRY, MOVE, MOVE],
+                [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]
+            ],
+            global: true
         }
     }
 
