@@ -39,7 +39,7 @@ module.exports.loop = function () {
         if (target) {
             continue;
         }
-        
+
         // Do role specific actions
         switch (creep.memory.role) {
             case 'worker':
@@ -80,84 +80,30 @@ module.exports.loop = function () {
         }
     }
 
-    
-    // Spawn needed role creeps
+    // Define creep demand
     gameFactory.autoSpawn(
         {
             'Spawn1': {
-                'worker': {
-                    num: 2,
-                    body: [WORK, CARRY, CARRY, MOVE, MOVE]
-                },
-
-                'miner': {
-                    num: 2,
-                    body: [WORK, WORK, WORK, WORK, WORK, MOVE]
-                },
-
-                'transporter': {
-                    num: 3,
-                    body: [CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]
-                },
-
-                'upgrader': {
-                    num: 3,
-                    body: [WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE]
-                },
-
-                'builder': {
-                    num: 1,
-                    body: [WORK, CARRY, MOVE]
-                },
-
-                'explorer': {
-                    num: 3,
-                    body: [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-                    global: true
-                },
-
-                'invader': {
-                    num: 0,
-                    body: [CLAIM, MOVE],
-                    global: true
-                }
+                'worker': 2,
+                'miner': 2,
+                'transporter': 3,
+                'upgrader': 3,
+                'builder': 1,
+                'explorer': 4,
+                'invader': 0
             },
             'Spawn2': {
-                'worker': {
-                    num: 1,
-                    body: [WORK, CARRY, CARRY, MOVE, MOVE]
-                },
-
-                'miner': {
-                    num: 1,
-                    body: [WORK, WORK, WORK, WORK, WORK, MOVE]
-                },
-
-                'builder': {
-                    num: 1,
-                    body: [WORK, CARRY, MOVE]
-                },
-
-                'transporter': {
-                    num: 1,
-                    body: [CARRY, CARRY, CARRY, MOVE, MOVE]
-                },
-
-                'upgrader': {
-                    num: 2,
-                    body: [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE]
-                },
-                
-                'explorer': {
-                    num: 3,
-                    body: [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-                    global: true
-                }
+                'worker': 1,
+                'miner': 1,
+                'builder': 1,
+                'transporter': 1,
+                'upgrader': 2,
+                'explorer': 3
             }
         }
     );
-    
 
+    
     //Memory.gameFactory.spawnCreep([MOVE], 'explorer');
     //Memory.gameFactory.spawnCreep([CLAIM, MOVE], 'invader');
 };

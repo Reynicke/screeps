@@ -1,7 +1,7 @@
 var cron = {
     
-    watch: function(time, fn) {
-        
+    every: function(interval) {
+        return Memory.cronTick % interval === 0;
     },
     
     isItTime: function(time) {
