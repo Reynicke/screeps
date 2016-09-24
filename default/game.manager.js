@@ -1,6 +1,13 @@
 var gameInfo = require('game.info');
 
 var gameManager = {
+    
+    createFlag: function(room, x, y, name, color1, color2) {
+        if (Game.flags[name]) {
+            Game.flags[name].remove();
+        }
+        return room.createFlag(x, y, name, color1, color2);
+    },
 
     run: function () {
         // Check all rooms
@@ -25,7 +32,7 @@ var gameManager = {
                 if (energyInContainers > 500) continue;
 
                 // Set home flag to room, so that the explorers deliver energy here
-                room.createFlag(25, 25, 'home', COLOR_GREEN, COLOR_YELLOW);
+                this.createFlag(room, 25, 25, 'home', COLOR_GREEN, COLOR_YELLOW);
                 Game.notify('Alert! Room ' + roomName + ' is in need of energy!');
             }
         }
