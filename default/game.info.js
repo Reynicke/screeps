@@ -2,10 +2,12 @@ var info = {
 
     roles: {},
     rolesPerRoom: {},
+    rolesPerSpawn: {},
 
     reset: function () {
         this.roles = {};
         this.rolesPerRoom = {};
+        this.rolesPerSpawn = {};
     },
 
     /** @param {Creep} creep **/
@@ -13,9 +15,8 @@ var info = {
         
         // Track roles
         var roomName = creep.pos.roomName;
+        var spawnName = creep.memory.spawn;
         var role = creep.memory.role;
-        
-        // TODO: dont count per room, but count per spawn (in memory)
         
         if (!this.rolesPerRoom[roomName]) {
             this.rolesPerRoom[roomName] = {};
@@ -23,11 +24,18 @@ var info = {
         if (!this.rolesPerRoom[roomName][role]) {
             this.rolesPerRoom[roomName][role] = 0;
         }
+        if (!this.rolesPerSpawn[spawnName]) {
+            this.rolesPerSpawn[spawnName] = {};
+        }
+        if (!this.rolesPerSpawn[spawnName][role]) {
+            this.rolesPerSpawn[spawnName][role] = 0;
+        }
         if (!this.roles[role]) {
             this.roles[role] = 0;
         }
         
         this.rolesPerRoom[roomName][role] += 1;
+        this.rolesPerSpawn[spawnName][role] += 1;
         this.roles[role] += 1;
 
 
@@ -92,16 +100,16 @@ var info = {
     /**
      * Returns number of creeps of given role
      * @param roleName
-     * @param roomName
+     * @param spawnName
      * @returns {number}
      */
-    getRoleCount: function (roleName, roomName = null) {
+    getRoleCount: function (roleName, spawnName = null) {
         var result = 0;
-        if (!roomName && this.roles[roleName]) {
+        if (!spawnName && this.roles[roleName]) {
             result = this.roles[roleName];
         }
-        else if (this.rolesPerRoom[roomName] && this.rolesPerRoom[roomName][roleName]) {
-            result = this.rolesPerRoom[roomName][roleName];
+        else if (this.rolesPerSpawn[spawnName] && this.rolesPerSpawn[spawnName][roleName]) {
+            result = this.rolesPerSpawn[spawnName][roleName];
         }
 
         return result;

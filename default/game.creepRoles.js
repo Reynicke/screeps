@@ -115,8 +115,7 @@ var roleDefinitions = {
                 [WORK, CARRY, CARRY, MOVE, MOVE],
                 [WORK, WORK, CARRY, CARRY, MOVE, MOVE],
                 [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]
-            ],
-            global: true
+            ]
         }
     }
 

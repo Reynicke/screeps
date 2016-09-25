@@ -30,11 +30,11 @@ var factory = {
             for (let role in config[spawn]) {
                 let roleDefinition = gameCreepRoles.getDefinition(role, room.energyAvailable);
                 let isRoleGlobal = roleDefinition.global;
-                let roomName = isRoleGlobal ? null : room.name;
-                let demandInRoom = config[spawn][role];
+                let spawnName = isRoleGlobal ? null : spawn;
+                let demandForSpawn = config[spawn][role];
 
                 // Check defined demand
-                if (gameInfo.getRoleCount(role, roomName) < demandInRoom) {
+                if (gameInfo.getRoleCount(role, spawnName) < demandForSpawn) {
                     // Spawn a creep
                     let success = this.spawnCreep(roleDefinition.body, role, spawn);
                     if (success) {
