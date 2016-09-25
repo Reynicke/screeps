@@ -21,7 +21,14 @@ var creep = {
             creep.moveTo(myFlag);
             return myFlag;
         }
-            
+        
+        // Check if creep is bound to it's spawn room
+        if (!creep.memory.wanderer && creep.pos.roomName != Game.spawns[creep.memory.spawn].pos.roomName) {
+            let homeSpawn = Game.spawns[creep.memory.spawn];
+            creep.moveTo(homeSpawn, {reusePath: 30});
+            return homeSpawn;
+        }
+        
             
         return null;    
     }

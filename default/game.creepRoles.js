@@ -6,7 +6,7 @@ var roleDefinitions = {
      * 
      * @param role
      * @param energyAvailable
-     * @returns {Object}  {global: bool, body: []}
+     * @returns {Object}  {global: bool, wanderer: bool, body: []}
      */
     getDefinition: function (role, energyAvailable) {
         if (!this._definitions[role]) return null;
@@ -22,8 +22,11 @@ var roleDefinitions = {
         }
         
         return {
-            global: this._definitions[role].global || false,
-            body: body
+            global: this._definitions[role].global || false,            // demand is global, not per spawn
+            body: body,                                                 // body definition
+            memory: {
+                wanderer: this._definitions[role].wanderer || false     // creep is not bound to one room
+            }
         };
     },
 
@@ -98,7 +101,8 @@ var roleDefinitions = {
                 [WORK, WORK, CARRY, CARRY, MOVE, MOVE],
                 [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]
             ],
-            global: true
+            global: true,
+            wanderer: true
         },
 
         'invader': {
@@ -106,7 +110,8 @@ var roleDefinitions = {
                 [CLAIM, MOVE],
                 [CLAIM, CLAIM, MOVE]
             ],
-            global: true
+            global: true,
+            wanderer: true
         },
         
         'importer': {
@@ -115,7 +120,8 @@ var roleDefinitions = {
                 [WORK, CARRY, CARRY, MOVE, MOVE],
                 [WORK, WORK, CARRY, CARRY, MOVE, MOVE],
                 [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]
-            ]
+            ],
+            wanderer: true
         }
     }
 

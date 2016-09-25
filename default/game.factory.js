@@ -36,7 +36,7 @@ var factory = {
                 // Check defined demand
                 if (gameInfo.getRoleCount(role, spawnName) < demandForSpawn) {
                     // Spawn a creep
-                    let success = this.spawnCreep(roleDefinition.body, role, spawn);
+                    let success = this.spawnCreep(roleDefinition.body, role, spawn, roleDefinition.memory);
                     if (success) {
                         return;
                     }
@@ -45,10 +45,12 @@ var factory = {
         }
     },
 
-    spawnCreep: function (parts, role, spawn = 'Spawn1') {
+    spawnCreep: function (parts, role, spawn = 'Spawn1', memory = {}) {
         var name = createName(role);
+        var creepMemory = {role: role, spawn: spawn};
+        creepMemory = Object.assign(creepMemory, memory);
 
-        var success = Game.spawns[spawn].createCreep(parts, name, {role: role, spawn: spawn});
+        var success = Game.spawns[spawn].createCreep(parts, name, creepMemory);
         if (isNaN(success)) {
             console.log(spawn, Game.spawns[spawn].pos, 'spawned ' + role + ': ' + name, parts);
             return true;
