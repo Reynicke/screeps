@@ -28,7 +28,7 @@ var roleExplorer = {
         
         // Move to room of target flag before doing an action
         var targetFlag = Game.flags[creep.memory.targetFlag];
-        if (creep.pos.roomName != targetFlag.pos.roomName) {
+        if (targetFlag && creep.pos.roomName != targetFlag.pos.roomName) {
             creep.moveTo(targetFlag, {reusePath: 10});
             return;
         }

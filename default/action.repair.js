@@ -3,13 +3,14 @@ var actionBuild = {
     /** @param {Creep} creep **/
     do: function (creep) {
 
+        var maxHitsToRepair = 1500000;
         var mode = 'closest';
         if (mode == 'closest') {
             
             // Repair closest target
             var success = false;
             var target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                filter: (structure) => structure.hits < structure.hitsMax
+                filter: (structure) => structure.hits < Math.min(structure.hitsMax, maxHitsToRepair)
             });
 
             if (target) {
@@ -27,7 +28,7 @@ var actionBuild = {
             
             // Repair target with fewest hits
             var targets = creep.room.find(FIND_STRUCTURES, {
-                filter: object => object.hits < object.hitsMax
+                filter: structure => structure.hits < Math.min(structure.hitsMax, maxHitsToRepair)
             });
 
             targets.sort((a, b) => a.hits - b.hits);

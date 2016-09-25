@@ -21,6 +21,7 @@ module.exports.loop = function () {
     // Put objects in global memory
     Memory.gameFactory = gameFactory;
     Memory.gameInfo = gameInfo;
+    Memory.gameManager = gameManager;
 
     gameInfo.reset();
     cron.tick();
@@ -90,10 +91,10 @@ module.exports.loop = function () {
             'Spawn1': {
                 'worker': 2,
                 'miner': 2,
-                'transporter': 3,
+                'transporter': gameInfo.roomHasConstructionSite(Game.spawns['Spawn1'].room) ? 3 : 2,
                 'upgrader': 3,
                 'builder': 1,
-                'importer': 2,
+                'importer': 4,
                 'explorer': 2,
                 'invader': 0
             },
@@ -104,7 +105,7 @@ module.exports.loop = function () {
                 'transporter': 1,
                 'upgrader': 2,
                 'explorer': 2,
-                'importer': 2
+                'importer': 3
             }
         }
     );

@@ -15,6 +15,8 @@ var info = {
         var roomName = creep.pos.roomName;
         var role = creep.memory.role;
         
+        // TODO: dont count per room, but count per spawn (in memory)
+        
         if (!this.rolesPerRoom[roomName]) {
             this.rolesPerRoom[roomName] = {};
         }
@@ -32,7 +34,7 @@ var info = {
         // Track positions
         var posKey = creep.pos.roomName + '_' + creep.pos.x + '_' + creep.pos.y;
         if (!Memory.creepPositions) {
-            Memory.creepPositions = {'test': 1};
+            Memory.creepPositions = {};
             Memory.creepPositions[posKey] = 0;
         }
         if (!Memory.creepPositions[posKey]) {
@@ -112,6 +114,16 @@ var info = {
      */
     getEnergyPercent: function(room) {
         return room.energyAvailable / room.energyCapacityAvailable;
+    },
+
+    /**
+     * Returns if given room has at least one construction sites
+     * @param {Room} room
+     * @returns {boolean}
+     */
+    roomHasConstructionSite: function(room) {
+        var sites = room.find(FIND_CONSTRUCTION_SITES);
+        return !!sites.length;
     }
     
 };

@@ -3,10 +3,17 @@ var gameInfo = require('game.info');
 var gameManager = {
     
     createFlag: function(room, x, y, name, color1, color2) {
-        if (Game.flags[name]) {
-            Game.flags[name].remove();
+        if (typeof room === 'string') {
+            room = Game.rooms[room];
         }
-        return room.createFlag(x, y, name, color1, color2);
+        
+        var flag = Game.flags[name];
+        if (flag) {
+            return flag.setColor(color1, color2) && flag.setPosition(new RoomPosition(x, y, room.name));
+        }
+        else {
+            return room.createFlag(x, y, name, color1, color2);
+        }
     },
 
     run: function () {
@@ -19,7 +26,7 @@ var gameManager = {
             }
 
             // If energy in room is running low
-            if (gameInfo.getEnergyPercent(room) < 0.25) {
+            if (gameInfo.getEnergyPercent(room) < 0.20) {
 
                 // Check energy in containers
                 var containersWithEnergy = room.find(FIND_STRUCTURES, {
