@@ -60,9 +60,9 @@ var info = {
     suggestRoads: function () {
         console.log('suggesting roads rd>... ');
         var flagName = 'rd>';
-        var suggestChances = 40;
+        var suggestChances = ~~(_.sum(this.roles) * 2.5);
         var results = 0;
-        
+
         // Remove all old suggestions
         for (let flag in Game.flags) {
             if (flag.indexOf(flagName) === 0) {
@@ -85,7 +85,8 @@ var info = {
             // Check if there is already a structure on this field
             let structure = room.lookForAt(LOOK_STRUCTURES, pos);
             if (!structure.length) {
-                room.createFlag( Number(posArr[1]), Number(posArr[2]), flagName + Memory.creepPositions[fields[i]], COLOR_GREY, COLOR_WHITE );
+                //room.createFlag( Number(posArr[1]), Number(posArr[2]), flagName + Memory.creepPositions[fields[i]], COLOR_GREY, COLOR_WHITE );
+                Memory.gameManager.createFlag(room, Number(posArr[1]), Number(posArr[2]), flagName + Memory.creepPositions[fields[i]], COLOR_GREY, COLOR_WHITE);
                 results++;
             }
         }

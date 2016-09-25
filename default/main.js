@@ -27,10 +27,6 @@ module.exports.loop = function () {
     cron.tick();
     gameManager.run();
 
-    if (cron.isItTime(1)) {
-        gameInfo.suggestRoads();
-    }
-
     // Creep loop
     for (let name in Game.creeps) {
         var creep = Game.creeps[name];
@@ -109,6 +105,10 @@ module.exports.loop = function () {
             }
         }
     );
+
+    if (cron.every(100)) {
+        gameInfo.suggestRoads();
+    }
 
     
     //Memory.gameFactory.spawnCreep([MOVE], 'explorer');
