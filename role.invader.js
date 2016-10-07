@@ -24,9 +24,15 @@ var roleInvader = {
             var controller = creep.room.controller;
             if (controller && !controller.my) {
                 if (controller.owner) {
-                    if (creep.attackController(controller) == ERR_NOT_IN_RANGE) {
+                    let result = creep.attackController(controller);
+                    if (result == ERR_NOT_IN_RANGE) {
                         creep.moveTo(controller);
                     }
+                    
+                    if (result == ERR_NO_BODYPART) {
+                        creep.say('body insufficient')
+                    }
+                    
                 }
                 else {
                     if (creep.claimController(controller) == ERR_NOT_IN_RANGE) {

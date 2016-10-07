@@ -1,9 +1,8 @@
-
 var roleDefinitions = {
 
     /**
      * Generates dynamic creep definition
-     * 
+     *
      * @param role
      * @param energyAvailable
      * @returns {Object}  {global: bool, wanderer: bool, body: []}
@@ -20,7 +19,7 @@ var roleDefinitions = {
                 break;
             }
         }
-        
+
         return {
             global: this._definitions[role].global || false,            // demand is global, not per spawn
             body: body,                                                 // body definition
@@ -30,14 +29,14 @@ var roleDefinitions = {
         };
     },
 
-    _calc: function(body) {
+    _calc: function (body) {
         var self = this;
         return _.reduce(body, function (sum, bodyPart) {
             return sum + self._cost(bodyPart);
         }, 0);
     },
 
-    _cost: function(bodyPart) {
+    _cost: function (bodyPart) {
         var cost = {
             move: 50,
             work: 100,
@@ -82,7 +81,8 @@ var roleDefinitions = {
                 [WORK, CARRY, MOVE],
                 [WORK, CARRY, CARRY, MOVE],
                 [WORK, WORK, CARRY, CARRY, CARRY, MOVE],
-                [WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE]
+                [WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE],
+                [WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE]
             ]
         },
 
@@ -108,12 +108,12 @@ var roleDefinitions = {
         'invader': {
             body: [
                 [CLAIM, MOVE],
-                [CLAIM, CLAIM, MOVE]
+                [CLAIM, CLAIM, CLAIM, CLAIM, CLAIM, MOVE]
             ],
             global: true,
             wanderer: true
         },
-        
+
         'importer': {
             body: [
                 [WORK, CARRY, MOVE],
@@ -121,6 +121,18 @@ var roleDefinitions = {
                 [WORK, WORK, CARRY, CARRY, MOVE, MOVE],
                 [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]
             ],
+            wanderer: true
+        },
+
+        'sword': {
+            body: [
+                [ATTACK, MOVE],
+                [ATTACK, ATTACK, MOVE],
+                [ATTACK, ATTACK, ATTACK, MOVE, MOVE],
+                [TOUGH, ATTACK, ATTACK, ATTACK, MOVE, MOVE, MOVE, MOVE],
+                [TOUGH, ATTACK, ATTACK, ATTACK, ATTACK, MOVE, MOVE, MOVE, MOVE]
+            ],
+            global: true,
             wanderer: true
         }
     }

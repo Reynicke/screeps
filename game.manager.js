@@ -40,7 +40,7 @@ var gameManager = {
         // Check all rooms
         for (let roomName in Game.rooms) {
             var room = Game.rooms[roomName];
-            if (!room.controller.my) {
+            if (room.controller && !room.controller.my) {
                 // If room is not mine, continue
                 continue;
             }

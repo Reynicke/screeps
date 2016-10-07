@@ -17,7 +17,7 @@ var creep = {
         }
         
         // Check if there is a flag with creeps name
-        var myFlag = Game.flags[creep.name];
+        var myFlag = Game.flags[creep.name] || Game.flags[creep.memory.role];
         if (myFlag) {
             creep.moveTo(myFlag, {reusePath: 10});
             return myFlag;

@@ -12,6 +12,7 @@ var roleMiner = require('role.miner');
 var roleExplorer = require('role.explorer');
 var roleImporter = require('role.importer');
 var roleInvader = require('role.invader');
+var roleSword = require('role.sword');
 
 var structureTower = require('structure.tower');
 var structureLink = require('structure.link');
@@ -64,6 +65,9 @@ module.exports.loop = function () {
             case 'invader':
                 roleInvader.run(creep);
                 break;
+            case 'sword':
+                roleSword.run(creep);
+                break;
         }
     }
 
@@ -92,7 +96,8 @@ module.exports.loop = function () {
                 'builder': 1,
                 'importer': 3,
                 'explorer': 1,
-                'invader': 0
+                'invader': 0,
+                'sword': 0
             },
             'Spawn2': {
                 'worker': 1,
@@ -101,7 +106,9 @@ module.exports.loop = function () {
                 'transporter': 1,
                 'upgrader': 2,
                 'explorer': 2,
-                'importer': 2
+                'importer': 2,
+                'invader': 0,
+                'sword': 0
             }
         }
     );
