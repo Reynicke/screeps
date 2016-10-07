@@ -90,8 +90,8 @@ module.exports.loop = function () {
                 'transporter': gameInfo.roomHasConstructionSite(Game.spawns['Spawn1'].room) ? 3 : 2,
                 'upgrader': 3,
                 'builder': 1,
-                'importer': 2,
-                'explorer': 2,
+                'importer': 3,
+                'explorer': 1,
                 'invader': 0
             },
             'Spawn2': {
