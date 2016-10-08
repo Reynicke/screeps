@@ -1,21 +1,10 @@
-var cron = require('game.cron');
-var gameInfo = require('game.info');
-var gameFactory = require('game.factory');
-var gameManager = require('game.manager');
+var cron = require('game_cron');
+var gameInfo = require('game_info');
+var gameFactory = require('game_factory');
+var gameManager = require('game_manager');
 
-var roleCreep = require('role.creep');
-var roleWorker = require('role.worker');
-var roleTransporter = require('role.transporter');
-var roleUpgrader = require('role.upgrader');
-var roleBuilder = require('role.builder');
-var roleMiner = require('role.miner');
-var roleExplorer = require('role.explorer');
-var roleImporter = require('role.importer');
-var roleInvader = require('role.invader');
-var roleSword = require('role.sword');
-
-var structureTower = require('structure.tower');
-var structureLink = require('structure.link');
+var creep = require('creep');
+var structure = require('structure');
 
 module.exports.loop = function () {
 
@@ -28,63 +17,10 @@ module.exports.loop = function () {
     cron.tick();
     gameManager.run();
 
-    // Creep loop
-    for (let name in Game.creeps) {
-        var creep = Game.creeps[name];
-        gameInfo.registerCreep(creep);
-
-        // Do generic creep action
-        let target = roleCreep.run(creep);
-        if (target) {
-            continue;
-        }
-
-        // Do role specific actions
-        switch (creep.memory.role) {
-            case 'worker':
-                roleWorker.run(creep);
-                break;
-            case 'transporter':
-                roleTransporter.run(creep);
-                break;
-            case 'upgrader':
-                roleUpgrader.run(creep);
-                break;
-            case 'builder':
-                roleBuilder.run(creep);
-                break;
-            case 'miner':
-                roleMiner.run(creep);
-                break;
-            case 'explorer':
-                roleExplorer.run(creep);
-                break;
-            case 'importer':
-                roleImporter.run(creep);
-                break;
-            case 'invader':
-                roleInvader.run(creep);
-                break;
-            case 'sword':
-                roleSword.run(creep);
-                break;
-        }
-    }
-
-    // Structure loop
-    for (let name in Game.structures) {
-        var structure = Game.structures[name];
-
-        switch (structure.structureType) {
-            case STRUCTURE_TOWER:
-                structureTower.run(structure);
-                break;
-            case STRUCTURE_LINK:
-                structureLink.run(structure);
-                break;
-        }
-    }
-
+    // Handle creep and structure actions
+    creep.loop();
+    structure.loop();
+    
     // Define creep demand
     gameFactory.autoSpawn(
         {
@@ -116,8 +52,4 @@ module.exports.loop = function () {
     if (cron.every(100)) {
         gameInfo.suggestRoads();
     }
-
-    
-    //Memory.gameFactory.spawnCreep([MOVE], 'explorer');
-    //Memory.gameFactory.spawnCreep([CLAIM, MOVE], 'invader');
 };

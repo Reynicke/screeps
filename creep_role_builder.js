@@ -1,6 +1,6 @@
-var actionHarvest = require('action.harvest');
-var actionBuild = require('action.build');
-var actionRepair = require('action.repair');
+var actionHarvest = require('creep_action_harvest');
+var actionBuild = require('creep_action_build');
+var actionRepair = require('creep_action_repair');
 
 var roleBuilder = {
 

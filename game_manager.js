@@ -1,4 +1,4 @@
-var gameInfo = require('game.info');
+var gameInfo = require('game_info');
 
 var gameManager = {
     

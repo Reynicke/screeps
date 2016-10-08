@@ -1,5 +1,5 @@
-var gameInfo = require('game.info');
-var gameCreepRoles = require('game.creepRoles');
+var gameInfo = require('game_info');
+var creepRole = require('creep_role');
 
 
 var names = ['Liam', 'Milan', 'Elias', 'Levi', 'Julian', 'Jonas', 'Linus', 'Daniel', 'Alex', 'Luca', 'Jan', 'Samuel', 'Tim', 'David', 'Michael', 'Lukas',
@@ -28,7 +28,7 @@ var factory = {
         for (var spawn in config) {
             var room = Game.spawns[spawn].room;
             for (let role in config[spawn]) {
-                let roleDefinition = gameCreepRoles.getDefinition(role, room.energyAvailable);
+                let roleDefinition = creepRole.getDefinition(role, room.energyAvailable);
                 let isRoleGlobal = roleDefinition.global;
                 let spawnName = isRoleGlobal ? null : spawn;
                 let demandForSpawn = config[spawn][role];

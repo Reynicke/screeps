@@ -1,8 +1,8 @@
-var actionHarvest = require('action.harvest');
-var actionDeliver = require('action.deliverEnergy');
-var actionRepair = require('action.repair');
-var actionBuild = require('action.build');
-var actionUpgrade = require('action.upgradeController');
+var actionHarvest = require('creep_action_harvest');
+var actionDeliver = require('creep_action_deliverEnergy');
+var actionRepair = require('creep_action_repair');
+var actionBuild = require('creep_action_build');
+var actionUpgrade = require('creep_action_upgradeController');
 
 var roleExplorer = {
 

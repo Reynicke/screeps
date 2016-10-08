@@ -1,6 +1,6 @@
-var harvestAction = require ('action.harvest');
-var deliverAction = require ('action.deliverEnergy');
-var upgradeAction = require ('action.upgradeController');
+var harvestAction = require('creep_action_harvest');
+var deliverAction = require('creep_action_deliverEnergy');
+var upgradeAction = require('creep_action_upgradeController');
 
 var roleTransporter = {
 

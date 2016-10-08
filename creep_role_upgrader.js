@@ -1,5 +1,5 @@
-var actionHarvest = require('action.harvest');
-var actionUpgrade = require('action.upgradeController');
+var actionHarvest = require('creep_action_harvest');
+var actionUpgrade = require('creep_action_upgradeController');
 
 var roleUpgrader = {
 

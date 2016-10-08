@@ -1,4 +1,4 @@
-var cron = require ('game.cron');
+var cron = require ('game_cron');
 
 var structureTower = {
 

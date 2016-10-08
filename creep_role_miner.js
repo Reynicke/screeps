@@ -1,4 +1,4 @@
-var actionHarvest = require('action.harvest');
+//var actionHarvest = require('creep_action_harvest');
 
 var roleMiner = {
 

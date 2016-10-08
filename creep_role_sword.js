@@ -1,4 +1,4 @@
-var actionAttack = require('action.attack');
+var actionAttack = require('creep_action_attack');
 
 
 var roleSword = {
