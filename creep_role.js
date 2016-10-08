@@ -129,8 +129,18 @@ var roleDefinitions = {
                 [ATTACK, MOVE],
                 [ATTACK, ATTACK, MOVE],
                 [ATTACK, ATTACK, ATTACK, MOVE, MOVE],
-                [TOUGH, ATTACK, ATTACK, ATTACK, MOVE, MOVE, MOVE, MOVE],
-                [TOUGH, ATTACK, ATTACK, ATTACK, ATTACK, MOVE, MOVE, MOVE, MOVE]
+                [TOUGH, ATTACK, ATTACK, ATTACK, MOVE, MOVE, MOVE, MOVE]
+            ],
+            global: true,
+            wanderer: true
+        },
+
+        'bow': {
+            body: [
+                [RANGED_ATTACK, MOVE],
+                [RANGED_ATTACK, RANGED_ATTACK, MOVE],
+                [RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, MOVE, MOVE, MOVE],
+                [TOUGH, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, MOVE, MOVE, MOVE, MOVE]
             ],
             global: true,
             wanderer: true

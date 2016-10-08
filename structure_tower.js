@@ -4,7 +4,7 @@ var structureTower = {
 
     /** @param {StructureTower} tower **/
     run: function (tower) {
-        var repairTicks = 18;
+        var repairTicks = 12;
         
         if (tower) {
             // Attack

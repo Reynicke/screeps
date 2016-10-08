@@ -32,8 +32,10 @@ module.exports.loop = function () {
                 'builder': 1,
                 'importer': 3,
                 'explorer': 3,
+                
                 'invader': 0,
-                'sword': 0
+                'sword': 0,
+                'bow': 0
             },
             'Spawn2': {
                 'worker': 1,
@@ -43,8 +45,10 @@ module.exports.loop = function () {
                 'upgrader': 2,
                 'explorer': 2,
                 'importer': 2,
+                
                 'invader': 0,
-                'sword': 0
+                'sword': 0,
+                'bow': 0
             }
         }
     );

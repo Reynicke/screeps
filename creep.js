@@ -9,6 +9,7 @@ var roleExplorer = require('creep_role_explorer');
 var roleImporter = require('creep_role_importer');
 var roleInvader = require('creep_role_invader');
 var roleSword = require('creep_role_sword');
+var roleBow = require('creep_role_bow');
 
 var creep = {
 
@@ -55,6 +56,9 @@ var creep = {
                     break;
                 case 'sword':
                     roleSword.run(creep);
+                    break;
+                case 'bow':
+                    roleBow.run(creep);
                     break;
             }
         }
