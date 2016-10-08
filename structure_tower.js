@@ -4,6 +4,8 @@ var structureTower = {
 
     /** @param {StructureTower} tower **/
     run: function (tower) {
+        var repairTicks = 18;
+        
         if (tower) {
             // Attack
             var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
@@ -13,7 +15,7 @@ var structureTower = {
             }
             
             // Repair only x% of the time and only if tower has spare energy
-            if (cron.isItTime(20) && tower.energy / tower.energyCapacity >= 0.5) {
+            if (cron.isItTime(repairTicks) && tower.energy / tower.energyCapacity >= 0.5) {
                 
                 // Find structures to repair
                 /*var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {

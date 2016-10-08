@@ -16,10 +16,10 @@ var actionHarvest = {
     do: function (creep, config = this.defaultConfig) {
         this.config = config;
         var target = null;
-        var moveOptions = {reusePath: 20};
+        var moveOptions = {reusePath: 5};
 
         // Find dropped energy or container
-        var droppedEnergy = this.findCloseDroppedEnergy(creep);
+        var droppedEnergy = false; //this.findCloseDroppedEnergy(creep); // TODO CHECK
         var container = this.findContainer(creep);
 
         if (droppedEnergy) {
@@ -58,9 +58,8 @@ var actionHarvest = {
      */
     findContainer: function (creep) {
         var filter, container,
-            minAmount = 30;
+            minAmount = 50;
 
-        // TODO make mayUseLinks dependent on distance
         if (this.config.mayUseLinks) {
             filter = (d) => {
                 let storedEnergy = (d.store && d.store[RESOURCE_ENERGY]) || d.energy;

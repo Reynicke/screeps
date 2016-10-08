@@ -78,7 +78,7 @@ var creep = {
         // Check if there is a flag with creeps name or it's role
         var myFlag = Game.flags[creep.name] || Game.flags[creep.memory.role];
         if (myFlag) {
-            creep.moveTo(myFlag, {reusePath: 10});
+            creep.moveTo(myFlag, {reusePath: 5});
             return myFlag;
         }
 
@@ -86,12 +86,35 @@ var creep = {
         // Return to room if it wandered to far
         var homeSpawn = Game.spawns[creep.memory.spawn];
         if (!creep.memory.wanderer && creep.pos.roomName != homeSpawn.pos.roomName) {
-            creep.moveTo(homeSpawn, {reusePath: 30});
+            creep.moveTo(homeSpawn, {reusePath: 10});
             return homeSpawn;
         }
 
+        // If creep is not a full energy capacity, check if there is energy lying around nearby
+        if (creep.carry.energy < creep.carryCapacity) {
+            var droppedEnergy = this.findCloseDroppedEnergy(creep);
+            if (droppedEnergy && creep.pickup(droppedEnergy) == ERR_NOT_IN_RANGE) {
+                creep.say('bling!');
+                creep.moveTo(droppedEnergy, {reusePath: 10});
+                return droppedEnergy;
+            }
+        }
 
         return null;
+    },
+
+    findCloseDroppedEnergy: function (creep) {
+        var maxRange = 8;
+        var minAmount = 25;
+
+        return creep.pos.findClosestByPath(
+            FIND_DROPPED_ENERGY,
+            {
+                filter: (e) => {
+                    return creep.pos.getRangeTo(e.pos) < maxRange && e.energy >= minAmount;
+                }
+            }
+        );
     }
 };
 
