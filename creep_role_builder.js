@@ -1,6 +1,7 @@
 var actionHarvest = require('creep_action_harvest');
 var actionBuild = require('creep_action_build');
 var actionRepair = require('creep_action_repair');
+var actionUpgrade = require('creep_action_upgradeController');
 
 var roleBuilder = {
 
@@ -18,7 +19,7 @@ var roleBuilder = {
         }
         
         if (creep.memory.building) {
-            actionBuild.do(creep) || actionRepair.do(creep);
+            actionBuild.do(creep) || actionRepair.do(creep) || actionUpgrade.do(creep);
         }
         else {
             actionHarvest.do(creep);

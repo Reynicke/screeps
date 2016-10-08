@@ -25,13 +25,22 @@ var actionDeliver = {
             }
         });
         
-        if (this.config.fillContainers && !target) {
+        if (!target && this.config.fillContainers) {
             // Try to find an empty container or storage
             target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return (structure.structureType == STRUCTURE_CONTAINER ||
                             structure.structureType == STRUCTURE_STORAGE)
-                         && structure.store[RESOURCE_ENERGY] < structure.storeCapacity;
+                         && _.sum(structure.store) < structure.storeCapacity;
+                }
+            });
+        }
+        
+        if (!target) {
+            // Try to find an empty storage
+            target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+                filter: (structure) => {
+                    return (structure.structureType == STRUCTURE_STORAGE) && _.sum(structure.store) < structure.storeCapacity;
                 }
             });
         }

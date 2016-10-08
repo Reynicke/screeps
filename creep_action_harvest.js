@@ -63,18 +63,30 @@ var actionHarvest = {
         // TODO make mayUseLinks dependent on distance
         if (this.config.mayUseLinks) {
             filter = (d) => {
-                var storedEnergy = (d.store && d.store[RESOURCE_ENERGY]) || d.energy;
+                let storedEnergy = (d.store && d.store[RESOURCE_ENERGY]) || d.energy;
                 return (d.structureType == STRUCTURE_CONTAINER || d.structureType == STRUCTURE_LINK) && (storedEnergy > minAmount);
             }
         }
         else {
             filter = (d) => {
-                var storedEnergy = (d.store && d.store[RESOURCE_ENERGY]);
+                let storedEnergy = (d.store && d.store[RESOURCE_ENERGY]);
                 return d.structureType == STRUCTURE_CONTAINER && (storedEnergy > minAmount);
             }
         }
         
         container = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: filter});
+        
+        // If no suitable container was found
+        if (!container) {
+            // Try looking in storage
+            let storage = creep.room.find(FIND_MY_STRUCTURES, {filter: (s) => {
+                return s.structureType == STRUCTURE_STORAGE && s.store[RESOURCE_ENERGY] > minAmount}
+            });
+            
+            if (storage.length) {
+                container = storage[0];
+            }
+        }
 
         return container;
     },
