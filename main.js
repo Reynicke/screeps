@@ -95,7 +95,7 @@ module.exports.loop = function () {
                 'upgrader': 3,
                 'builder': 1,
                 'importer': 3,
-                'explorer': 1,
+                'explorer': 3,
                 'invader': 0,
                 'sword': 0
             },

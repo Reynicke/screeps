@@ -16,6 +16,7 @@ var actionHarvest = {
     do: function (creep, config = this.defaultConfig) {
         this.config = config;
         var target = null;
+        var moveOptions = {reusePath: 20};
 
         // Find dropped energy or container
         var droppedEnergy = this.findCloseDroppedEnergy(creep);
@@ -24,7 +25,7 @@ var actionHarvest = {
         if (droppedEnergy) {
             // Pick up dropped energy
             if (creep.pickup(droppedEnergy) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(droppedEnergy);
+                creep.moveTo(droppedEnergy, moveOptions);
                 target = droppedEnergy;
             }
         }
@@ -32,7 +33,7 @@ var actionHarvest = {
         else if (container) {
             // Pick up from container
             if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(container);
+                creep.moveTo(container, moveOptions);
                 target = container;
             }
         }
@@ -41,8 +42,8 @@ var actionHarvest = {
             // harvest 
             // Determine target resource
             var source = creep.pos.findClosestByPath(FIND_SOURCES);
-            if (creep.harvest(source) == ERR_NOT_IN_RANGE || creep.harvest(source) == ERR_NO_BODYPART) {
-                creep.moveTo(source);
+            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(source, moveOptions);
                 target = source;
             }
         }
@@ -59,17 +60,17 @@ var actionHarvest = {
         var filter, container,
             minAmount = 30;
 
+        // TODO make mayUseLinks dependent on distance
         if (this.config.mayUseLinks) {
             filter = (d) => {
                 var storedEnergy = (d.store && d.store[RESOURCE_ENERGY]) || d.energy;
-                return (d.structureType == STRUCTURE_CONTAINER || d.structureType == STRUCTURE_LINK) &&
-                    (storedEnergy / creep.pos.getRangeTo(d) > minAmount);
+                return (d.structureType == STRUCTURE_CONTAINER || d.structureType == STRUCTURE_LINK) && (storedEnergy > minAmount);
             }
         }
         else {
             filter = (d) => {
                 var storedEnergy = (d.store && d.store[RESOURCE_ENERGY]);
-                return d.structureType == STRUCTURE_CONTAINER && (storedEnergy / creep.pos.getRangeTo(d) > minAmount);
+                return d.structureType == STRUCTURE_CONTAINER && (storedEnergy > minAmount);
             }
         }
         

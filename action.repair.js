@@ -3,7 +3,7 @@ var actionBuild = {
     /** @param {Creep} creep **/
     do: function (creep) {
 
-        var maxHitsToRepair = 1600000;
+        var maxHitsToRepair = 2000000;
         var mode = 'closest';
         if (mode == 'closest') {
             

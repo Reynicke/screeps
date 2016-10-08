@@ -13,7 +13,7 @@ var structureTower = {
             }
             
             // Repair only x% of the time and only if tower has spare energy
-            if (cron.isItTime(35) && tower.energy / tower.energyCapacity >= 0.5) {
+            if (cron.isItTime(20) && tower.energy / tower.energyCapacity >= 0.5) {
                 
                 // Find structures to repair
                 /*var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
